@@ -48,7 +48,7 @@ public class VectorsAssignment : ProcessingLite.GP21
 
         if (Input.GetMouseButtonUp(0))
         {
-            dist = CalculateVectors(circelPos, vectPos);
+            dist = vectPos - circelPos;
             if (dist.sqrMagnitude > 5*5)
             {
                 dist.Normalize();
