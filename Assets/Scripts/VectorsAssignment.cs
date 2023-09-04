@@ -34,18 +34,13 @@ public class VectorsAssignment : ProcessingLite.GP21
 
         if(Input.GetMouseButtonDown(0))
         {
-            Background(49, 77, 121);
             circelPos.x = MouseX;
             circelPos.y = MouseY;
-            Stroke(255, 255, 255, 255);
             dist = Vector2.zero;
             Circle(circelPos.x,circelPos.y, dia);
         }
 
         if(Input.GetMouseButton(0)) { 
-
-            Background(49, 77, 121);
-            //Circle(circelPos.x, circelPos.y, dia);
             vectPos.x = MouseX;
             vectPos.y = MouseY;
             Line(circelPos.x, circelPos.y, vectPos.x, vectPos.y);
@@ -54,30 +49,25 @@ public class VectorsAssignment : ProcessingLite.GP21
         if (Input.GetMouseButtonUp(0))
         {
             dist = CalculateVectors(circelPos, vectPos);
-            Debug.Log(circelPos);
+            if (dist.sqrMagnitude > 5*5)
+            {
+                dist.Normalize();
+                dist *= 5;
+            }
         }
 
         circelPos += dist * Time.deltaTime * speed;
 
-        //Line(circelPos.x, circelPos.y, vectPos.x, vectPos.y);
         Circle(circelPos.x, circelPos.y, dia);
+        float rad = dia / 2;
 
-            
         //edges check
-        if (circelPos.x + dia  >= Width || circelPos.x - dia <= 0)
-        {
-            //dist = circelPos;
-            //circelPos.x -= bounceRate * Time.deltaTime;
+        if (circelPos.x + rad >= Width || circelPos.x - rad <= 0)
             dist.x *= -1;
-        }
-        if (circelPos.y + dia >= Height || circelPos.y - dia <= 0)
-        {
+        if (circelPos.y + rad >= Height || circelPos.y - rad <= 0)
             dist.y *= -1;
-        }
         else
-        {
             speed *= 1;
-        }
     }
 
     //This function calculates the length of a given vector. 
